@@ -2,6 +2,16 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const request = require('request');
 const cheerio = require('cheerio');
+const { app, BrowserWindow } = require('electron');
+
+var win = null;
+
+function createWindow() {
+    win = new BrowserWindow({ width: 600, height: 900 });
+    win.loadFile('index.html');
+}
+
+app.on('ready', createWindow);
 
 const client = new Discord.Client();
 const permissions = '68608';
@@ -21,6 +31,7 @@ function lookup(url) {
     request(options, function (err, res, body) {
         var $ = cheerio.load(body);
         fs.writeFileSync("./index.html", $.html());
+        win.reload();
     });
 }
 
@@ -35,15 +46,9 @@ client.on('message', msg => {
         msg.embeds.forEach(e => {
             if (e.image) {
                 console.log(`Looking up ${e.image.url}..`);
-
+                fs.writeFileSync('index.html', `<p>Loading ${e.image.url}..</p>`);
+                win.reload();
                 lookup(e.image.url);
-                // google.searchByImageURL({
-                //     imageURL: e.image.url
-                // }).then(result => {
-                //     console.log(result);
-                // }).catch(err => {
-                //     console.error(err);
-                // });
             }
         });
     }
