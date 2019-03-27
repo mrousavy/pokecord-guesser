@@ -42,17 +42,20 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    if (msg.member.id == '365975655608745985') {
-        msg.embeds.forEach(e => {
-            if (e.image) {
-                if (e.title.includes('wild')) {
-                    console.log(`Looking up ${e.image.url}..`);
-                    fs.writeFileSync('index.html', `<p>Loading ${e.image.url}..</p>`);
-                    win.reload();
-                    lookup(e.image.url);
+    if (msg.member &&
+        msg.member.id == '365975655608745985') {
+        if (msg.embeds) {
+            msg.embeds.forEach(e => {
+                if (e.image) {
+                    if (e.title.includes('wild')) {
+                        console.log(`Looking up ${e.image.url}..`);
+                        fs.writeFileSync('index.html', `<p>Loading ${e.image.url}..</p>`);
+                        win.reload();
+                        lookup(e.image.url);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 });
 
