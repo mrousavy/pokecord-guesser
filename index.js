@@ -45,10 +45,12 @@ client.on('message', msg => {
     if (msg.member.id == '365975655608745985') {
         msg.embeds.forEach(e => {
             if (e.image) {
-                console.log(`Looking up ${e.image.url}..`);
-                fs.writeFileSync('index.html', `<p>Loading ${e.image.url}..</p>`);
-                win.reload();
-                lookup(e.image.url);
+                if (e.title.includes('wild')) {
+                    console.log(`Looking up ${e.image.url}..`);
+                    fs.writeFileSync('index.html', `<p>Loading ${e.image.url}..</p>`);
+                    win.reload();
+                    lookup(e.image.url);
+                }
             }
         });
     }
