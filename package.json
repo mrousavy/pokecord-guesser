@@ -27,5 +27,8 @@
     "discord.js": "^11.4.2",
     "electron": "^4.1.1",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^13.1.1"
   }
 }

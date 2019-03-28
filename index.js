@@ -15,8 +15,6 @@ app.on('ready', createWindow);
 
 const client = new Discord.Client();
 const permissions = '68608';
-const clientId = '560361265139286017';
-const clientInviteUrl = `https://discordapp.com/oauth2/authorize?client_id=${clientId}&scope=bot&permissions=${permissions}`;
 const token = fs.readFileSync('token.txt', 'utf8').trim();
 
 
@@ -38,6 +36,7 @@ function lookup(url) {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    const clientInviteUrl = `https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=${permissions}`;
     console.log(`Invite link: ${clientInviteUrl}`);
 });
 
